@@ -37,12 +37,12 @@ def input_data(data):
     tylenol = input()
     tylenol = 1 if tylenol == 'y' else 0
 
-    print('Did you take OxyCodon? y/n: ', end='')
-    oxycodon = input()
-    oxycodon = 1 if oxycodon == 'y' else 0
+    print('Did you take OxyCodone? y/n: ', end='')
+    oxycodone = input()
+    oxycodone = 1 if oxycodone == 'y' else 0
 
     # add to dataframe
-    data.loc[len(data.index)] = [dt, ibuprofen, tylenol, oxycodon]
+    data.loc[len(data.index)] = [dt, ibuprofen, tylenol, oxycodone]
     return data.sort_values(by='Time').set_index(pd.Index(range(len(data.index))))
 
 
@@ -57,7 +57,14 @@ def save_data(data, file):
 
 
 def make_graphs(data):
-    graph_drug_time_separate(data)
+    print('\t1) Drug use per time of day')
+    print('\t2) Time between uses of of OxyCodone per week')
+    i = input()
+    if i == '1':
+        graph_drug_time_separate(data)
+    elif i == '2':
+        graph_oxycodone_use_per_week(data)
+    # todo make repeatable
 
 
 if __name__ == '__main__':
@@ -70,7 +77,7 @@ if __name__ == '__main__':
         data['Time'] = pd.to_datetime(data['Time'])
     else:
         print('File ed.csv not found. Creating a new dataframe...', end='')
-        data = pd.DataFrame(columns=['Time', 'Ibuprofen', 'Tylenol', 'OxyCodon'])
+        data = pd.DataFrame(columns=['Time', 'Ibuprofen', 'Tylenol', 'OxyCodone'])
     print('Done!')
 
     # next see what the user wants to do

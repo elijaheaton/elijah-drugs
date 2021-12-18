@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 # This function looks at what time of day I take drugs where each drug is counted separately
 def graph_drug_time_separate(data):
-    size = data['Ibuprofen'].sum() + data['Tylenol'].sum() + data['OxyCodon'].sum()
+    size = data['Ibuprofen'].sum() + data['Tylenol'].sum() + data['OxyCodone'].sum()
     times = [None] * size
     offset = 0
     for i in range(len(data.index)):
@@ -26,3 +26,10 @@ def graph_drug_time_separate(data):
     plt.xlabel('Number of drugs taken overall')
     plt.title('Number of drugs taken at each hour of \nthe day over the course of recovery')
     plt.show()
+
+
+# This graph shows the average time between taking OxyCodone per week
+def graph_oxycodone_use_per_week(data):
+    oxy = data[data['OxyCodone'] > 0]['Time']
+    # todo: find distances in time, divided by week, and graph
+    print(oxy)
