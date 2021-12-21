@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 # This function looks at what time of day I take drugs where each drug is counted separately
+# todo: why does it look like i only take drugs on odd numbered hours
 def graph_drug_time_separate(data):
     size = data['Ibuprofen'].sum() + data['Tylenol'].sum() + data['OxyCodone'].sum()
     times = [None] * size
@@ -29,7 +32,40 @@ def graph_drug_time_separate(data):
 
 
 # This graph shows the average time between taking OxyCodone per week
+# todo: change everything about this
 def graph_oxycodone_use_per_week(data):
     oxy = data[data['OxyCodone'] > 0]['Time']
-    # todo: find distances in time, divided by week, and graph
-    print(oxy)
+    tyl = data[data['Tylenol'] > 0]['Time']
+    ibu = data[data['Ibuprofen'] > 0]['Time']
+
+    i = 0
+    length = len(data.index)
+    time_o = [0] * (length - 1)
+    time_t = [0] * (length - 1)
+    time_i = [0] * (length - 1)
+
+    while i < length - 1:
+        if i < len(oxy) - 1:
+            o1 = oxy.iloc[i]
+            o2 = oxy.iloc[i + 1]
+            delta = (o2 - o1).total_seconds() / 3600
+            time_o[i - 1] = delta
+        if i < len(tyl) - 1:
+            t1 = tyl.iloc[i]
+            t2 = tyl.iloc[i + 1]
+            delta = (t2 - t1).total_seconds() / 3600
+            time_t[i - 1] = delta
+        if i < len(ibu) - 1:
+            i1 = ibu.iloc[i]
+            i2 = ibu.iloc[i + 1]
+            delta = (i2 - i1).total_seconds() / 3600
+            time_i[i - 1] = delta
+        i += 1
+
+    plt.bar(np.arange(length - 1), time_o, width=0.3, label='O')
+    plt.bar(np.arange(length - 1) + 0.3, time_t, width=0.3, label='T')
+    plt.bar(np.arange(length - 1) + 0.6, time_i, width=0.3, label='I')
+    plt.ylabel('Number of hours between use')
+    plt.xlabel('Iteration of taking drugs')
+    plt.title('TBD')
+    plt.show()

@@ -14,6 +14,12 @@ def print_menu_options():
     print('\tq) quit')
 
 
+def print_graph_options():
+    print('\t1) Drug use per time of day')
+    print('\t2) Time between uses of of OxyCodone per week')
+    print('\tb) Back')
+
+
 def input_data(data):
     print('Please input the date of taking the drugs in mm/dd/yyyy format: ', end='')
     date = input()
@@ -22,7 +28,7 @@ def input_data(data):
     date = [int(d) for d in date.split('/')]
 
     print('Please input the time of taking the drugs in 24-hour hh:mm format: ', end='')
-    time=input()
+    time = input()
 
     # TODO error check
     time = [int(t) for t in time.split(':')]
@@ -57,14 +63,17 @@ def save_data(data, file):
 
 
 def make_graphs(data):
-    print('\t1) Drug use per time of day')
-    print('\t2) Time between uses of of OxyCodone per week')
-    i = input()
-    if i == '1':
-        graph_drug_time_separate(data)
-    elif i == '2':
-        graph_oxycodone_use_per_week(data)
-    # todo make repeatable
+    i = ''
+    while i != 'b':
+        print_graph_options()
+        print('What would you like to do? ', end='')
+        i = input()
+        if i == '1':
+            graph_drug_time_separate(data)
+        elif i == '2':
+            graph_oxycodone_use_per_week(data)
+        else:
+            print('Sorry, that is not an option yet.')
 
 
 if __name__ == '__main__':
