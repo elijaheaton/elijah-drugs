@@ -3,7 +3,6 @@ import numpy as np
 
 
 # This function looks at what time of day I take drugs where each drug is counted separately
-# todo: why does it look like i only take drugs on odd numbered hours
 def graph_drug_time_separate(data):
     size = data['Ibuprofen'].sum() + data['Tylenol'].sum() + data['OxyCodone'].sum()
     times = [None] * size
@@ -23,7 +22,7 @@ def graph_drug_time_separate(data):
             offset += 1
         offset -= 1
 
-    plt.hist(times, orientation='horizontal', rwidth=0.4)
+    plt.hist(times, orientation='horizontal', rwidth=0.7, bins=range(25))
     plt.yticks(range(24))
     plt.ylabel('Time of the day drugs are taken')
     plt.xlabel('Number of drugs taken overall')

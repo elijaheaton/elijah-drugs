@@ -3,6 +3,7 @@
 import pandas as pd
 import datetime
 import os
+import re
 
 from plotting import *
 
@@ -105,3 +106,5 @@ if __name__ == '__main__':
             save_data(data, file)
             break
 
+def error_check_date(date):
+    # todo use regex
