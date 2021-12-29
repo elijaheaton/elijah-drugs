@@ -21,19 +21,40 @@ def print_graph_options():
     print('\tb) Back')
 
 
-def input_data(data):
-    print('Please input the date of taking the drugs in mm/dd/yyyy format: ', end='')
-    date = input()
+def error_check_date(date):
+    pattern = '^0[1-9]|1[0-2]/(([0-2][0-9])|3[0-1])/[12][0-9]{3}$'
+    return re.match(pattern, date)
 
-    # TODO error check
+
+def error_check_time(time):
+    pattern = '^(([0-1][0-9])|(2[0-3])):[0-5][0-9]$'
+    return re.match(pattern, time)
+
+
+def input_data(data):
+    # Get date
+    print('Please input the date of taking the drugs in mm/dd/yyyy format: ', end='')
+    while True:
+        date = input()
+        if error_check_date(date):
+            break
+        else:
+            print('Please try again using the mm/dd/yyyy format for a valid date: ', end='')
+
     date = [int(d) for d in date.split('/')]
 
+    # Get time
     print('Please input the time of taking the drugs in 24-hour hh:mm format: ', end='')
-    time = input()
+    while True:
+        time = input()
+        if error_check_time(time):
+            break
+        else:
+            print('Please try again using the hh:mm format for a valid time: ', end='')
 
-    # TODO error check
     time = [int(t) for t in time.split(':')]
 
+    # Convert to datetime
     dt = datetime.datetime(date[2], date[0], date[1], time[0], time[1])
 
     print('Did you take Ibuprofen? y/n: ', end='')
@@ -105,6 +126,3 @@ if __name__ == '__main__':
         elif response == 'q':
             save_data(data, file)
             break
-
-def error_check_date(date):
-    # todo use regex

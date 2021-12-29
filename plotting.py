@@ -31,7 +31,7 @@ def graph_drug_time_separate(data):
 
 
 # This graph shows the average time between taking OxyCodone per week
-# todo: change everything about this
+# todo: progress but still awful
 def graph_oxycodone_use_per_week(data):
     oxy = data[data['OxyCodone'] > 0]['Time']
     tyl = data[data['Tylenol'] > 0]['Time']
@@ -61,10 +61,11 @@ def graph_oxycodone_use_per_week(data):
             time_i[i - 1] = delta
         i += 1
 
-    plt.bar(np.arange(length - 1), time_o, width=0.3, label='O')
-    plt.bar(np.arange(length - 1) + 0.3, time_t, width=0.3, label='T')
-    plt.bar(np.arange(length - 1) + 0.6, time_i, width=0.3, label='I')
+    plt.plot(np.arange(length - 1), time_o, label='O')
+    plt.plot(np.arange(length - 1) + 0.3, time_t, label='T')
+    plt.plot(np.arange(length - 1) + 0.6, time_i, label='I')
     plt.ylabel('Number of hours between use')
     plt.xlabel('Iteration of taking drugs')
     plt.title('TBD')
+    plt.legend()
     plt.show()
