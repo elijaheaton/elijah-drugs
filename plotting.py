@@ -30,42 +30,49 @@ def graph_drug_time_separate(data):
     plt.show()
 
 
-# This graph shows the average time between taking OxyCodone per week
-# todo: progress but still awful
-def graph_oxycodone_use_per_week(data):
-    oxy = data[data['OxyCodone'] > 0]['Time']
+# This graph shows the average time between taking Ibuprofen and Tylenol, by iteration
+def graph_drug_use_per_iteration(data):
     tyl = data[data['Tylenol'] > 0]['Time']
     ibu = data[data['Ibuprofen'] > 0]['Time']
 
     i = 0
     length = len(data.index)
-    time_o = [0] * (length - 1)
-    time_t = [0] * (length - 1)
-    time_i = [0] * (length - 1)
+    len_t = len(tyl) - 1
+    len_i = len(ibu) - 1
+
+    time_t = [0] * len_t
+    time_i = [0] * len_i
 
     while i < length - 1:
-        if i < len(oxy) - 1:
-            o1 = oxy.iloc[i]
-            o2 = oxy.iloc[i + 1]
-            delta = (o2 - o1).total_seconds() / 3600
-            time_o[i - 1] = delta
-        if i < len(tyl) - 1:
+        if i < len_t:
             t1 = tyl.iloc[i]
             t2 = tyl.iloc[i + 1]
             delta = (t2 - t1).total_seconds() / 3600
-            time_t[i - 1] = delta
-        if i < len(ibu) - 1:
+            time_t[i] = delta
+        if i < len_i:
             i1 = ibu.iloc[i]
             i2 = ibu.iloc[i + 1]
             delta = (i2 - i1).total_seconds() / 3600
-            time_i[i - 1] = delta
+            time_i[i] = delta
         i += 1
 
-    plt.plot(np.arange(length - 1), time_o, label='O')
-    plt.plot(np.arange(length - 1) + 0.3, time_t, label='T')
-    plt.plot(np.arange(length - 1) + 0.6, time_i, label='I')
+    plt.plot(np.arange(len_t), time_t, label='Tylenol')
+    plt.plot(np.arange(len_i) + 0.2, time_i, label='Ibuprofen')
     plt.ylabel('Number of hours between use')
     plt.xlabel('Iteration of taking drugs')
-    plt.title('TBD')
+    plt.title('How long Elijah was able to go\nwithout using Ibuprofen or Tylenol')
     plt.legend()
     plt.show()
+
+
+# Find color for a bar based on which drug is most common in that bar
+#   TODO: apply this to graph 1
+def color_triangle(data):
+    total = len(data)
+    i, o, t = 0
+    for d in data:
+        i += 1 if d == 'i' else 0
+        o += 1 if d == 'o' else 0
+        t += 1 if d == 't' else 0
+
+    return [i/total, t/total, o/total]

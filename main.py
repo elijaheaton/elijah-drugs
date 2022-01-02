@@ -17,7 +17,7 @@ def print_menu_options():
 
 def print_graph_options():
     print('\t1) Drug use per time of day')
-    print('\t2) Time between uses of of OxyCodone per week')
+    print('\t2) Time between uses of of Ibuprofen and Tylenol')
     print('\tb) Back')
 
 
@@ -93,7 +93,7 @@ def make_graphs(data):
         if i == '1':
             graph_drug_time_separate(data)
         elif i == '2':
-            graph_oxycodone_use_per_week(data)
+            graph_drug_use_per_iteration(data)
         else:
             print('Sorry, that is not an option yet.')
 
