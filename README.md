@@ -16,6 +16,6 @@ _This graph looks at how long I can go between uses of ibuprofen and tylenol. No
 <br />
 <br />
 
-As I slowly work on this project, typing one key at a time, I want to think of different ways to visually show recovery over time. Ideas always welcome!
+I recovered enough to use both of my hands, so I stopped working on this project.
 
 This repo contains personal information about my recovery.
